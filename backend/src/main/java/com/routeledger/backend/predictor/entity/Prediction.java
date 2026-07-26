@@ -1,6 +1,7 @@
-package com.routeledger.backend.predictor;
+package com.routeledger.backend.predictor.entity;
 
 import com.routeledger.backend.common.BaseEntity;
+import com.routeledger.backend.predictor.enums.RiskLevel;
 import com.routeledger.backend.trip.entity.Trip;
 import jakarta.persistence.*;
 import lombok.*;
