@@ -1,5 +1,6 @@
-package com.routeledger.backend.trip;
+package com.routeledger.backend.trip.controller;
 
+import com.routeledger.backend.trip.service.TripService;
 import com.routeledger.backend.trip.dto.CreateTripRequest;
 import com.routeledger.backend.trip.dto.TripResponse;
 import com.routeledger.backend.trip.dto.UpdateTripStatusRequest;
