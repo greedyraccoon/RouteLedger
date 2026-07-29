@@ -1,4 +1,4 @@
-package com.routeledger.backend.driver.dto;
+package com.routeledger.backend.driver.dto.request;
 
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotBlank;

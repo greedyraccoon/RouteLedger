@@ -1,6 +1,6 @@
 package com.routeledger.backend.user.controller;
 
-import com.routeledger.backend.user.UserService;
+import com.routeledger.backend.user.service.UserService;
 import com.routeledger.backend.user.dto.UpdateRoleRequest;
 import com.routeledger.backend.user.dto.UserResponse;
 import jakarta.validation.Valid;

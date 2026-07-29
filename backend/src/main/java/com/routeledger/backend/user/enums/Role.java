@@ -1,4 +1,4 @@
-package com.routeledger.backend.user.entity;
+package com.routeledger.backend.user.enums;
 
 public enum Role {
     DISPATCHER,

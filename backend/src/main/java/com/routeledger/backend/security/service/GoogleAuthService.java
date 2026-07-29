@@ -1,19 +1,17 @@
 package com.routeledger.backend.security.service;
 
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
-import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.api.client.json.gson.GsonFactory;
 import com.routeledger.backend.security.dto.AuthResponse;
 import com.routeledger.backend.security.dto.GoogleLoginRequest;
-import com.routeledger.backend.user.entity.Role;
 import com.routeledger.backend.user.entity.User;
+import com.routeledger.backend.user.enums.Role;
 import com.routeledger.backend.user.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.reactive.function.client.WebClient;
 
-import java.util.Collections;
+import java.util.Map;
 
 @Service
 public class GoogleAuthService {
@@ -24,7 +22,7 @@ public class GoogleAuthService {
 
     public GoogleAuthService(UserRepository userRepository,
                              JwtService jwtService,
-                             @Value("${spring.security.oauth2.client.registration.google.client-id:dummy-id}") String googleClientId) {
+                             @Value("${spring.security.oauth2.client.registration.google.client-id}") String googleClientId) {
         this.userRepository = userRepository;
         this.jwtService = jwtService;
         this.googleClientId = googleClientId;
@@ -33,23 +31,22 @@ public class GoogleAuthService {
     @Transactional
     public AuthResponse authenticateGoogleUser(GoogleLoginRequest request) {
         try {
-            GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(
-                    new NetHttpTransport(), new GsonFactory())
-                    .setAudience(Collections.singletonList(googleClientId))
-                    .build();
+            Map payload = WebClient.create()
+                    .get()
+                    .uri("https://oauth2.googleapis.com/tokeninfo?id_token=" + request.idToken())
+                    .retrieve()
+                    .bodyToMono(Map.class)
+                    .block();
 
-            GoogleIdToken idToken = verifier.verify(request.idToken());
-            if (idToken == null) {
+            if (payload == null || !googleClientId.equals(payload.get("aud"))) {
                 throw new IllegalArgumentException("Invalid Google ID Token");
             }
 
-            GoogleIdToken.Payload payload = idToken.getPayload();
-            String email = payload.getEmail();
+            String email = (String) payload.get("email");
             String name = (String) payload.get("name");
             String pictureUrl = (String) payload.get("picture");
-            String googleSub = payload.getSubject();
+            String googleSub = (String) payload.get("sub");
 
-            // Find or create user in our PostgreSQL database
             User user = userRepository.findByEmail(email)
                     .orElseGet(() -> userRepository.save(
                             User.builder()
@@ -61,11 +58,11 @@ public class GoogleAuthService {
                                     .build()
                     ));
 
-            // Generate our backend JWT
             String jwt = jwtService.generateToken(user);
-
             return new AuthResponse(jwt, user.getEmail(), user.getName(), user.getPictureUrl(), user.getRole());
 
+        } catch (IllegalArgumentException e) {
+            throw e;
         } catch (Exception e) {
             throw new RuntimeException("Failed to authenticate with Google: " + e.getMessage(), e);
         }

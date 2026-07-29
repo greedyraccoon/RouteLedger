@@ -17,7 +17,6 @@ public interface DriverRepository extends JpaRepository<Driver, Long> {
 
     Optional<Driver> findByPhoneNumber(String phoneNumber);
 
-    // Pessimistic Lock: Guarantees concurrency safety when updating wallet balance in ledger
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("SELECT d FROM Driver d WHERE d.id = :id")
     Optional<Driver> findByIdForUpdate(@Param("id") Long id);

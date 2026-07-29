@@ -1,6 +1,6 @@
 package com.routeledger.backend.security.dto;
 
-import com.routeledger.backend.user.entity.Role;
+import com.routeledger.backend.user.enums.Role;
 
 public record AuthResponse(
         String token,

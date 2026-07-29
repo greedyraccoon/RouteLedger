@@ -1,6 +1,7 @@
 package com.routeledger.backend.user.entity;
 
 import com.routeledger.backend.common.BaseEntity;
+import com.routeledger.backend.user.enums.Role;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;

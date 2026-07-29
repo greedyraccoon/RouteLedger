@@ -1,6 +1,6 @@
 package com.routeledger.backend.driver.service;
 
-import com.routeledger.backend.driver.dto.CreateDriverRequest;
+import com.routeledger.backend.driver.dto.request.CreateDriverRequest;
 import com.routeledger.backend.driver.dto.request.UpdateDriverStatusRequest;
 import com.routeledger.backend.driver.dto.response.DriverResponse;
 
