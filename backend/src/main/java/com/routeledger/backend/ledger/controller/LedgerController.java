@@ -32,4 +32,9 @@ public class LedgerController {
     public ResponseEntity<List<LedgerEntryResponse>> getLedgerByTrip(@PathVariable Long tripId) {
         return ResponseEntity.ok(ledgerService.getTripLedger(tripId));
     }
+
+    @GetMapping
+    public ResponseEntity<List<LedgerEntryResponse>> getAllEntries() {
+        return ResponseEntity.ok(ledgerService.getAllEntries());
+    }
 }

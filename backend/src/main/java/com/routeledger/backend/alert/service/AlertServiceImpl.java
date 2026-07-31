@@ -66,6 +66,14 @@ public class AlertServiceImpl implements AlertService {
         return mapToResponse(alertRepository.save(alert));
     }
 
+    @Override
+    public List<AlertResponse> getAllAlerts() {
+        return alertRepository.findAll()
+                .stream()
+                .map(this::mapToResponse)
+                .toList();
+    }
+
     private AlertResponse mapToResponse(Alert alert) {
         return new AlertResponse(
                 alert.getId(),

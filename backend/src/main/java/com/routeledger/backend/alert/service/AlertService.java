@@ -11,4 +11,6 @@ public interface AlertService {
     List<AlertResponse> getUnacknowledgedAlerts();
     List<AlertResponse> getAlertsForTrip(Long tripId);
     AlertResponse acknowledgeAlert(Long alertId, AcknowledgeAlertRequest request);
+
+    List<AlertResponse> getAllAlerts();
 }

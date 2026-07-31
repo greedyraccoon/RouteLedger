@@ -40,4 +40,9 @@ public class AlertController {
             @Valid @RequestBody AcknowledgeAlertRequest request) {
         return ResponseEntity.ok(alertService.acknowledgeAlert(id, request));
     }
+
+    @GetMapping
+    public ResponseEntity<List<AlertResponse>> getAllAlerts() {
+        return ResponseEntity.ok(alertService.getAllAlerts());
+    }
 }

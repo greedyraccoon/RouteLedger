@@ -9,4 +9,5 @@ public interface LedgerService {
     LedgerEntryResponse createEntry(CreateLedgerEntryRequest request);
     List<LedgerEntryResponse> getDriverLedger(Long driverId);
     List<LedgerEntryResponse> getTripLedger(Long tripId);
+    List<LedgerEntryResponse> getAllEntries();
 }

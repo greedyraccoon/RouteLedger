@@ -77,6 +77,14 @@ public class LedgerServiceImpl implements LedgerService {
                 .toList();
     }
 
+    @Override
+    public List<LedgerEntryResponse> getAllEntries() {
+        return ledgerRepository.findAll()
+                .stream()
+                .map(this::mapToResponse)
+                .toList();
+    }
+
     private LedgerEntryResponse mapToResponse(LedgerEntry entry) {
         return new LedgerEntryResponse(
                 entry.getId(),
