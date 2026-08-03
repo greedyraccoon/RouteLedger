@@ -10,11 +10,17 @@ spring:
             client-id: ${GOOGLE_CLIENT_ID}
             client-secret: ${GOOGLE_CLIENT_SECRET}
 
+#  datasource:
+#    url: jdbc:postgresql://localhost:5432/routeledger
+#    username: user
+#    password: user
+#    driver-class-name: org.postgresql.Driver
+
+
   datasource:
-    url: jdbc:postgresql://localhost:5432/routeledger
-    username: user
-    password: user
-    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://database-1.cf0msciw8wcm.eu-north-1.rds.amazonaws.com:5432/routeledger
+    username: routeledger_app
+    password: ${ROUTELEDGER_DB_PASSWORD}
 
   jpa:
     hibernate:
