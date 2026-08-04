@@ -1,9 +1,9 @@
 /** Small shared formatters so tables render backend values consistently. */
 
 export function formatCurrency(amount: number): string {
-  return new Intl.NumberFormat("en-US", {
+  return new Intl.NumberFormat("en-IN", {
     style: "currency",
-    currency: "EUR",
+    currency: "INR",
     minimumFractionDigits: 2,
   }).format(amount);
 }
