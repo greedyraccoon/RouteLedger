@@ -1,0 +1,38 @@
+# Maven
+target/
+*.jar
+*.war
+*.class
+
+# IntelliJ
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# VS Code
+.vscode/
+
+# Environment & Secrets
+.env
+*.env
+application-local.yaml
+application-secrets.yaml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Node / React (for Frontend folder)
+node_modules/
+dist/
+build/
+.next/
+D:\Projects\RouteLedger\Frontend\.env
+# Logs
+*.log
+logs/
+
+# Spring Boot
+spring-shell.log
+
